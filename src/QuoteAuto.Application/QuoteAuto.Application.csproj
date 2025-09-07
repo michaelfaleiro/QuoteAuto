@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\QuoteAuto.Communication\QuoteAuto.Communication.csproj" />
+      <ProjectReference Include="..\QuoteAuto.Core\QuoteAuto.Core.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="UseCase\Quotes\QuoteProducts\RemoveQuoteProduct\" />
+      <Folder Include="UseCase\Quotes\SupplierPrices\AddSupplierPriceOnQuoteProduct\" />
+      <Folder Include="UseCase\Quotes\SupplierPrices\RemoveSupplierPriceOnQuoteProduct\" />
+    </ItemGroup>
+
+</Project>
