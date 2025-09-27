@@ -2,6 +2,7 @@ using QuoteAuto.Communication.Response.QuoteProducts;
 using QuoteAuto.Communication.Response.Quotes;
 using QuoteAuto.Communication.Response.Shared;
 using QuoteAuto.Communication.Response.SupplierPrices;
+using QuoteAuto.Communication.Response.Vehicles;
 using QuoteAuto.Core.Repositories;
 
 namespace QuoteAuto.Application.UseCase.Quotes.GetById;
@@ -28,6 +29,12 @@ public class GetQuoteByIdUseCase(IQuoteRepository quoteRepository)
         
         var data = new QuoteWithProductsJsonResponse(
             quote.Id,
+            new VehicleJsonResponse(
+                quote.Vehicle.Model,
+                quote.Vehicle.Plate,
+                quote.Vehicle.Vin,
+                quote.Vehicle.Year
+            ),
             quote.Status,
             quoteProducts,
             quote.CreatedAt,

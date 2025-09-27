@@ -1,6 +1,7 @@
 using QuoteAuto.Communication.Request.Quotes;
 using QuoteAuto.Communication.Response.Quotes;
 using QuoteAuto.Communication.Response.Shared;
+using QuoteAuto.Communication.Response.Vehicles;
 using QuoteAuto.Core.Repositories;
 
 namespace QuoteAuto.Application.UseCase.Quotes.Update;
@@ -13,7 +14,8 @@ public class UpdateQuoteUseCase(IQuoteRepository quoteRepository)
             ?? throw new KeyNotFoundException("Quote not found");
         
         quote.UpdateQuote(
-            request.Status
+            request.Status,
+            request.Vehicle
             );
         
         var response = await quoteRepository.UpdateAsync(id, quote)
@@ -21,6 +23,12 @@ public class UpdateQuoteUseCase(IQuoteRepository quoteRepository)
         
         var data = new QuoteJsonResponse(
             response.Id,
+            new VehicleJsonResponse(
+                response.Vehicle.Model,
+                response.Vehicle.Plate,
+                response.Vehicle.Vin,
+                response.Vehicle.Year
+            ),
             response.Status,
             response.CreatedAt,
             response.UpdatedAt

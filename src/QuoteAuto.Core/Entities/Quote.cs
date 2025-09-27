@@ -1,21 +1,27 @@
+using MongoDB.Bson.Serialization.Attributes;
+using QuoteAuto.Core.ValueObject;
+
 namespace QuoteAuto.Core.Entities;
 
+[BsonIgnoreExtraElements]
 public class Quote : BaseEntity
 {
+    public Vehicle Vehicle { get; private set; }
     public string Status { get; private set; }
     public IList<QuoteProduct> Products { get; private set; }
     public DateTime CreatedAt { get; private set; }
     public DateTime? UpdatedAt { get; private set; }
     
-    public Quote( string status)
+    public Quote(string status, Vehicle vehicle)
     {
         Status = status;
+        Vehicle = vehicle;
         Products = [];
         CreatedAt = DateTime.UtcNow;
     }
-    
-    public void UpdateQuote(string status)
+    public void UpdateQuote(string status, Vehicle vehicle)
     {
+        vehicle.UpdateVehicle(vehicle);
         Status = status;
         Update();
     }
@@ -31,7 +37,7 @@ public class Quote : BaseEntity
         Products.Remove(quoteProduct);
         Update();
     }
-
+    
     void Update()
     {
         UpdatedAt = DateTime.UtcNow;
