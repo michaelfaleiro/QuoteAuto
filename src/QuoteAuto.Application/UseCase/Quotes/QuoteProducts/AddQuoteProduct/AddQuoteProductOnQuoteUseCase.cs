@@ -8,7 +8,7 @@ namespace QuoteAuto.Application.UseCase.Quotes.QuoteProducts.AddQuoteProduct;
 
 public class AddQuoteProductOnQuoteUseCase(IQuoteRepository repository)
 {
-    public async Task<ResponseJson<QuoteProductJsonResponse>> ExecuteAsync(
+    public async Task ExecuteAsync(
         string quoteId,
         AddQuoteProductOnQuoteRequest request)
     {
@@ -23,13 +23,5 @@ public class AddQuoteProductOnQuoteUseCase(IQuoteRepository repository)
         
         var updatedQuote = await repository.UpdateAsync(quoteId, quote)
             ?? throw new Exception("Error adding product to quote");
-        
-        var data = new QuoteProductJsonResponse(
-            quoteProduct.Id,
-            quoteProduct.ProductName
-            );
-        
-        return new ResponseJson<QuoteProductJsonResponse>(data);
     }
-    
 }

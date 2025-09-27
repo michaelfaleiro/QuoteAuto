@@ -11,10 +11,4 @@
       <ProjectReference Include="..\QuoteAuto.Core\QuoteAuto.Core.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="UseCase\Quotes\QuoteProducts\RemoveQuoteProduct\" />
-      <Folder Include="UseCase\Quotes\SupplierPrices\AddSupplierPriceOnQuoteProduct\" />
-      <Folder Include="UseCase\Quotes\SupplierPrices\RemoveSupplierPriceOnQuoteProduct\" />
-    </ItemGroup>
-
 </Project>

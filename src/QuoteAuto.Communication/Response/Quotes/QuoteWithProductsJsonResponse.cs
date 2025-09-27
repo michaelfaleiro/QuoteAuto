@@ -2,10 +2,10 @@ using QuoteAuto.Communication.Response.QuoteProducts;
 
 namespace QuoteAuto.Communication.Response.Quotes;
 
-public record QuoteWithProductsJson(
+public record QuoteWithProductsJsonResponse(
     string Id,
     string Status,
-    IEnumerable<QuoteProductJsonResponse> Products,
+    IEnumerable<QuoteProductWithSupplierPriceJsonResponse> Products,
     DateTime CreatedAt,
     DateTime? UpdatedAt
     );

@@ -2,7 +2,10 @@ using Microsoft.AspNetCore.Mvc;
 using QuoteAuto.Application.UseCase.Quotes.GetAll;
 using QuoteAuto.Application.UseCase.Quotes.GetById;
 using QuoteAuto.Application.UseCase.Quotes.QuoteProducts.AddQuoteProduct;
+using QuoteAuto.Application.UseCase.Quotes.QuoteProducts.RemoveQuoteProduct;
 using QuoteAuto.Application.UseCase.Quotes.Register;
+using QuoteAuto.Application.UseCase.Quotes.SupplierPrices.AddSupplierPriceOnQuoteProduct;
+using QuoteAuto.Application.UseCase.Quotes.SupplierPrices.RemoveSupplierPriceOnQuoteProduct;
 using QuoteAuto.Application.UseCase.Quotes.Update;
 using QuoteAuto.Communication.Request.Quotes;
 
@@ -43,6 +46,42 @@ public class QuotesController : ControllerBase
         [FromRoute] string id,
         [FromBody] AddQuoteProductOnQuoteRequest request,
         [FromServices] AddQuoteProductOnQuoteUseCase useCase)
-        => Ok(await useCase.ExecuteAsync(id, request));
+    {
+        await useCase.ExecuteAsync(id, request);
+        return NoContent();
+    }
 
+    [HttpDelete("{quoteId:length(24)}/products/{quoteProductId:length(24)}")]
+    public async Task<IActionResult> RemoveProductFromQuote(
+        [FromRoute] string quoteId,
+        [FromRoute] string quoteProductId,
+        [FromServices] RemoveQuoteProductOnQuoteUseCase useCase)
+    {
+        await useCase.ExecuteAsync(quoteId, quoteProductId);
+        return NoContent();
+    }
+
+    [HttpPost("{quoteId:length(24)}/products/{quoteProductId:length(24)}/suppliePrices")]
+    public async Task<IActionResult> AddSupplierPriceToQuoteProduct(
+        [FromRoute] string quoteId,
+        [FromRoute] string quoteProductId,
+        [FromBody] AddSupplierPriceOnQuoteProductRequest request,
+        [FromServices] AddSupplierPriceOnQuoteProductUseCase useCase)
+    {
+        await useCase.ExecuteAsync(quoteId, quoteProductId, request);
+        return NoContent();
+    }
+
+    [HttpDelete(
+        "{quoteId:length(24)}/products/{quoteProductId:length(24)}/supplierPrices/{supplierPriceId:length(24)}")]
+    public async Task<IActionResult> RemoveSupplierPriceFromQuoteProduct(
+        [FromRoute] string quoteId,
+        [FromRoute] string quoteProductId,
+        [FromRoute] string supplierPriceId,
+        [FromServices] RemoveSupplierPriceOnQuoteUseCase useCase)
+    {
+        await useCase.ExecuteAsync(quoteId, quoteProductId, supplierPriceId);
+        return NoContent();
+    }
+    
 }
