@@ -18,7 +18,8 @@ public class AddSupplierPriceOnQuoteProductUseCase(IQuoteRepository quoteReposit
         var supplierPrice = new SupplierPrice(
             request.SupplierName,
             request.Price,
-            request.Brand
+            request.Brand,
+            request.Sku
             );
         
         quoteProduct.AddSupplierPrice(supplierPrice);

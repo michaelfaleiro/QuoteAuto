@@ -9,9 +9,9 @@ namespace QuoteAuto.Application.UseCase.Quotes.GetById;
 
 public class GetQuoteByIdUseCase(IQuoteRepository quoteRepository)
 {
-    public async Task<ResponseJson<QuoteWithProductsJsonResponse>> ExecuteAsync(string Id)
+    public async Task<ResponseJson<QuoteWithProductsJsonResponse>> ExecuteAsync(string id)
     {
-        var quote = await quoteRepository.GetByIdAsync(Id) 
+        var quote = await quoteRepository.GetByIdAsync(id) 
             ?? throw new KeyNotFoundException("Quote not found");
 
         var quoteProducts = quote.Products.Select(qp => new QuoteProductWithSupplierPriceJsonResponse(
@@ -22,6 +22,7 @@ public class GetQuoteByIdUseCase(IQuoteRepository quoteRepository)
                     sp.SupplierName,
                     sp.Price,
                     sp.Brand,
+                    sp.Sku,
                     sp.IsSelected
                 )
             ).ToList()
