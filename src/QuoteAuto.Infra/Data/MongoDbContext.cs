@@ -7,18 +7,13 @@ public class MongoDbContext
 {
     private readonly IMongoDatabase _database;
 
-    public MongoDbContext(IConfiguration configuration)
+    public MongoDbContext(IMongoClient client, IConfiguration configuration)
     {
-        var connectionString = configuration["MongoDB:ConnectionString"];
-        var databaseName = configuration["MongoDB:DatabaseName"];
-
-        if (string.IsNullOrEmpty(connectionString))
-            throw new InvalidOperationException("MongoDB connection string is not configured");
+        var databaseName = configuration["MongoSettings:DatabaseName"];
 
         if (string.IsNullOrEmpty(databaseName))
             throw new InvalidOperationException("MongoDB database name is not configured");
 
-        var client = new MongoClient(connectionString);
         _database = client.GetDatabase(databaseName);
     }
 

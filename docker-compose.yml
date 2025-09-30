@@ -1,0 +1,39 @@
+
+services:
+  quoteauto.api:
+    container_name: quoteauto.api
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=5002
+      - "ConnectionStrings__MongoDb=mongodb://root:password@mongo-quoteauto:27017/"
+    ports:
+      - "5002:5002"
+    networks:
+      - quoteauto-network
+    depends_on:
+      - mongo-quoteauto
+  # Serviço do MongoDB
+  mongo-quoteauto:
+    container_name: mongo-quoteauto
+    image: "mongo:latest" # Imagem oficial do MongoDB
+    environment:
+      # Defina seu usuário e senha root para o MongoDB
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: password
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db # Persiste os dados do MongoDB
+    networks:
+      - quoteauto-network
+
+networks:
+  quoteauto-network:
+    driver: bridge
+
+volumes:
+  mongo-data:
+    driver: local
