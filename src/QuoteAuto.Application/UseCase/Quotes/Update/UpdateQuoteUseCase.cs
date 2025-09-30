@@ -15,8 +15,7 @@ public class UpdateQuoteUseCase(IQuoteRepository quoteRepository)
         
         quote.UpdateQuote(
             request.Status,
-            request.Vehicle
-            );
+            request.Vehicle);
         
         var response = await quoteRepository.UpdateAsync(id, quote)
             ?? throw new Exception("Error updating quote");

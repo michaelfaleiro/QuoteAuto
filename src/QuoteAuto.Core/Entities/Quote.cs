@@ -21,7 +21,12 @@ public class Quote : BaseEntity
     }
     public void UpdateQuote(string status, Vehicle vehicle)
     {
-        vehicle.UpdateVehicle(vehicle);
+        Vehicle.UpdateVehicle(
+            vehicle.Model,
+            vehicle.Plate,
+            vehicle.Vin,
+            vehicle.Year
+        );
         Status = status;
         Update();
     }

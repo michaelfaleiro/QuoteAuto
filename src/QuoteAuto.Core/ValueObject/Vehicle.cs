@@ -15,11 +15,11 @@ public class Vehicle : ValueObject
         Year = year;
     }
     
-    public void UpdateVehicle(Vehicle vehicle)
+    public void UpdateVehicle(string model, string plate, string vin, int year)
     {
-        Model = vehicle.Model;
-        Plate = vehicle.Plate;
-        Vin = vehicle.Vin;
-        Year = vehicle.Year;
+        Model = model;
+        Plate = plate;
+        Vin = vin;
+        Year = year;
     }
 }
