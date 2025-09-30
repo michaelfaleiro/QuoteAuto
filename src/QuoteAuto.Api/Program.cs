@@ -1,5 +1,7 @@
+using MongoDB.Driver;
 using QuoteAuto.Application.Services;
 using QuoteAuto.Infra;
+using QuoteAuto.Infra.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +13,11 @@ builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddInfraRepositories();
 builder.Services.AddApplicationServices();
+
+builder.Services.AddSingleton<IMongoClient>(sp =>
+    new MongoClient(builder.Configuration.GetConnectionString("MongoDb"))
+);
+builder.Services.AddSingleton<MongoDbContext>();
 
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();

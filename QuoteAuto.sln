@@ -1,6 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{EC0D5BB8-45EF-482B-A54D-6ABA8B2D17B4}"
+	ProjectSection(SolutionItems) = preProject
+		Dockerfile = Dockerfile
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuoteAuto.Core", "src\QuoteAuto.Core\QuoteAuto.Core.csproj", "{10E27822-86D2-48F4-AD22-F091B327D951}"
 EndProject
