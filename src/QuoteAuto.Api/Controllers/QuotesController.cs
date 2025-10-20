@@ -5,7 +5,9 @@ using QuoteAuto.Application.UseCase.Quotes.QuoteProducts.AddQuoteProduct;
 using QuoteAuto.Application.UseCase.Quotes.QuoteProducts.RemoveQuoteProduct;
 using QuoteAuto.Application.UseCase.Quotes.Register;
 using QuoteAuto.Application.UseCase.Quotes.SupplierPrices.AddSupplierPriceOnQuoteProduct;
+using QuoteAuto.Application.UseCase.Quotes.SupplierPrices.DeselectSupplierPriceOnQuoteProduct;
 using QuoteAuto.Application.UseCase.Quotes.SupplierPrices.RemoveSupplierPriceOnQuoteProduct;
+using QuoteAuto.Application.UseCase.Quotes.SupplierPrices.SelectSupplierPriceOnQuoteProduct;
 using QuoteAuto.Application.UseCase.Quotes.Update;
 using QuoteAuto.Communication.Request.Quotes;
 
@@ -17,29 +19,29 @@ public class QuotesController : ControllerBase
 {
     [HttpPost]
     public async Task<IActionResult> RegisterQuote(
-        [FromServices]RegisterQuoteUseCase useCase,
+        [FromServices] RegisterQuoteUseCase useCase,
         [FromBody] RegisterQuoteRequest request)
-    => Created(string.Empty, await useCase.ExecuteAsync(request));
-    
+        => Created(string.Empty, await useCase.ExecuteAsync(request));
+
     [HttpGet("{id:length(24)}")]
     public async Task<IActionResult> GetById(
         [FromServices] GetQuoteByIdUseCase useCase,
         [FromRoute] string id)
-    => Ok(await useCase.ExecuteAsync(id));
-    
+        => Ok(await useCase.ExecuteAsync(id));
+
     [HttpGet]
     public async Task<IActionResult> GetAll(
         [FromServices] GetAllQuotesUseCase useCase,
-        [FromQuery]int page = 1,
-        [FromQuery]int pageSize = 10)
-    => Ok(await useCase.ExecuteAsync(page, pageSize));
+        [FromQuery] int page = 1,
+        [FromQuery] int pageSize = 10)
+        => Ok(await useCase.ExecuteAsync(page, pageSize));
 
     [HttpPut("{id:length(24)}")]
     public async Task<IActionResult> UpdateQuote(
         string id,
         [FromBody] UpdateQuoteRequest request,
-        [FromServices] UpdateQuoteUseCase useCase) 
-    => Ok(await useCase.ExecuteAsync(id, request));
+        [FromServices] UpdateQuoteUseCase useCase)
+        => Ok(await useCase.ExecuteAsync(id, request));
 
     [HttpPost("{id:length(24)}/products")]
     public async Task<IActionResult> AddProductToQuote(
@@ -83,5 +85,28 @@ public class QuotesController : ControllerBase
         await useCase.ExecuteAsync(quoteId, quoteProductId, supplierPriceId);
         return NoContent();
     }
-    
+
+    [HttpPost(
+        "{quoteId:length(24)}/products/{quoteProductId:length(24)}/supplierPrices/{supplierPriceId:length(24)}/select")]
+    public async Task<IActionResult> SelectSupplierPriceOnQuoteProduct(
+        [FromRoute] string quoteId,
+        [FromRoute] string quoteProductId,
+        [FromRoute] string supplierPriceId,
+        [FromServices] SelectSupplierPriceOnQuoteProductUseCase useCase)
+    {
+        await useCase.ExecuteAsync(quoteId, quoteProductId, supplierPriceId);
+        return NoContent();
+    }
+
+    [HttpPost(
+        "{quoteId:length(24)}/products/{quoteProductId:length(24)}/supplierPrices/{supplierPriceId:length(24)}/deselect")]
+    public async Task<IActionResult> DeselectSupplierPriceOnQuoteProduct(
+        [FromRoute] string quoteId,
+        [FromRoute] string quoteProductId,
+        [FromRoute] string supplierPriceId,
+        [FromServices] DeselectSupplierPriceOnQuoteProductUseCase useCase)
+    {
+        await useCase.ExecuteAsync(quoteId, quoteProductId, supplierPriceId);
+        return NoContent();
+    }
 }
