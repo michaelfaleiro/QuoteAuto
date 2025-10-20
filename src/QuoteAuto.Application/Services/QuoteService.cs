@@ -5,7 +5,9 @@ using QuoteAuto.Application.UseCase.Quotes.QuoteProducts.AddQuoteProduct;
 using QuoteAuto.Application.UseCase.Quotes.QuoteProducts.RemoveQuoteProduct;
 using QuoteAuto.Application.UseCase.Quotes.Register;
 using QuoteAuto.Application.UseCase.Quotes.SupplierPrices.AddSupplierPriceOnQuoteProduct;
+using QuoteAuto.Application.UseCase.Quotes.SupplierPrices.DeselectSupplierPriceOnQuoteProduct;
 using QuoteAuto.Application.UseCase.Quotes.SupplierPrices.RemoveSupplierPriceOnQuoteProduct;
+using QuoteAuto.Application.UseCase.Quotes.SupplierPrices.SelectSupplierPriceOnQuoteProduct;
 using QuoteAuto.Application.UseCase.Quotes.Update;
 
 namespace QuoteAuto.Application.Services;
@@ -22,6 +24,8 @@ public static class QuoteService
         services.AddScoped<RemoveQuoteProductOnQuoteUseCase>();
         services.AddScoped<AddSupplierPriceOnQuoteProductUseCase>();
         services.AddScoped<RemoveSupplierPriceOnQuoteUseCase>();
+        services.AddScoped<SelectSupplierPriceOnQuoteProductUseCase>();
+        services.AddScoped<DeselectSupplierPriceOnQuoteProductUseCase>();
 
         return services;
     }
